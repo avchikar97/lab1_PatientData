@@ -1,4 +1,4 @@
-# In[5]:
+# In[3]:
 
 import pandas as pd
 import numpy as np
@@ -6,9 +6,10 @@ import matplotlib.pyplot as plt
 
 ### Questions ###
 # a) There are 452 patients and 280 features.
-# b) Column 0 is probably age because of the concentration around the middle, the low number of patients in the beginning bins, and the sudden dropoff around the 67 or 70 year mark.
-#    Column 1 is probably gender since the data given only has two choices and the distribution is approaching even (0 = 252, 1 = 250)
-#    Column 2 is probably height in centimeters because it's so concentrated between 155 (~5'2") and 175 (~5'10") range. The average male height in the U.S. is around 5'10" while the average female height is around 5'4".
+# b) Column 0: is probably age because of the concentration around the middle, the low number of patients in the beginning bins, and the sudden dropoff around the 67 or 70 year mark.
+#    Column 1: is probably gender since the data given only has two choices and the distribution is approaching even (0 = 202, 1 = 250). Since the average height of 0 is 171cm and
+#             the average height of 1s is 162cm, 0 probably indicates male while 1 probably indicates female.
+#    Column 2: is probably height in centimeters because it's so concentrated between 155 (~5'2") and 175 (~5'10") range. The average male height in the U.S. is around 5'10" while the average female height is around 5'4".
 #    Column 3: the majority of patients appear to have col3 reading between 50 and 80 with one notable outlier at 175. It could be a a mistake, like the two outliers from col2, but it's best to assume they are true readings.
 #                since we are assuming the metric system for column 2, if we conclude the third column refers to weight in kg, it makes sense. Even the 175 kg outlier, while overweight provides a plausible weight for column 3 as the weight column
 # c) Yes there are missing values. This can be seen by printing df_na_columns or by running and printing df.isnull().any().any().
@@ -30,6 +31,9 @@ plt.figure()
 df[1].hist(bins=10)
 plt.xlabel('Column 1 distribution')
 plt.show()
+df2 = df[[0, 1, 2]]
+df3 = df2.groupby(1).mean()
+print(df3)
 
 ##Column 2 analysis 
 df[2].value_counts()
